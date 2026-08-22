@@ -5,7 +5,22 @@ activate it on up to **2 devices**, and run `gate-x serve`.
 
 This repository ships the **compiled** build only. Source lives elsewhere.
 
-## Install
+## Install (one command)
+
+Checks for Python 3.12 (installs it if missing), builds an isolated venv,
+installs the compiled build, and verifies it runs:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.sh | bash -s -- --dir gate-x
+```
+
+Pass your key to activate in the same step:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.sh | bash -s -- --server https://YOUR-LICENSE-SERVER --key GATEX-XXXX-XXXX-XXXX-XXXX
+```
+
+## Install (manual)
 
 Requires **Python 3.12** on Linux x86_64.
 
