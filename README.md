@@ -77,14 +77,14 @@ gate-x update --apply    # download + install the newer release
 ```
 
 **Fully automatic (no manual update needed):** run this once after install to
-put gate-x under systemd `--user` and have it check for updates every minute,
-auto-installing and restarting itself when a new release ships:
+put gate-x under systemd `--user` and have it check for updates every 5
+minutes, auto-installing and restarting itself when a new release ships:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/install-service.sh | bash -s -- --dir gate-x
 ```
 
-Bumps the interval with `--interval SECONDS` (default 60). Check on it any time:
+Change the cadence with `--interval SECONDS` (default 300). Check on it any time:
 
 ```bash
 systemctl --user status gatex.service gatex-update.timer

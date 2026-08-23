@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 #
 # gate-x install-service — run gate-x as a systemd --user service, plus a
-# timer that checks for updates every minute and restarts the service when
+# timer that checks for updates every 5 minutes and restarts the service when
 # one is applied. Run this after bootstrap.sh / install.sh.
 #
 # Usage:
 #   ./install-service.sh [--dir DIR] [--interval SECONDS]
 #
 #   --dir DIR           install location used by bootstrap.sh (default: gate-x)
-#   --interval SECONDS  update-check interval (default: 60)
+#   --interval SECONDS  update-check interval (default: 300)
 #
 # Requires systemd --user (any normal Linux desktop/server has this). On a
 # VPS you SSH into, user units stop when you log out unless lingering is on;
@@ -16,7 +16,7 @@
 set -euo pipefail
 
 DIR="gate-x"
-INTERVAL=60
+INTERVAL=300
 
 while [ $# -gt 0 ]; do
   case "$1" in
