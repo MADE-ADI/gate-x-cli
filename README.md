@@ -25,8 +25,12 @@ curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.
 Requires **Python 3.12** on Linux x86_64.
 
 ```bash
-pip install "https://github.com/MADE-ADI/gate-x-cli/releases/latest/download/gate_x-0.1.0-cp312-cp312-manylinux_2_35_x86_64.whl"
+pip install "$(curl -fsSL https://api.github.com/repos/MADE-ADI/gate-x-cli/releases/latest | grep -oE 'https://[^"]+cp312[^"]+\.whl')"
 ```
+
+The wheel filename embeds the version (`gate_x-0.1.1-cp312-...`), so don't
+pin `releases/latest/download/<filename>` directly — that literal name stops
+existing the moment a new version ships. Resolve the URL from the API, as above.
 
 or grab the wheel from the [latest release](../../releases/latest) and:
 
@@ -64,6 +68,38 @@ gate-x -c config.yaml serve
 ```
 
 Point any OpenAI or Anthropic SDK at `http://127.0.0.1:8317`.
+
+## Updates
+
+```bash
+gate-x update            # check only
+gate-x update --apply    # download + install the newer release
+```
+
+**Fully automatic (no manual update needed):** run this once after install to
+put gate-x under systemd `--user` and have it check for updates every minute,
+auto-installing and restarting itself when a new release ships:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/install-service.sh | bash -s -- --dir gate-x
+```
+
+Bumps the interval with `--interval SECONDS` (default 60). Check on it any time:
+
+```bash
+systemctl --user status gatex.service gatex-update.timer
+journalctl --user -u gatex-update.service -f
+```
+
+Note: a machine installed **before** this existed (v0.1.0) has no `update`
+command — run the manual install command above once to get onto a version
+that has it, then `install-service.sh` works as usual.
+
+## Uninstall
+
+```bash
+gate-x uninstall            # stops the service, frees the license slot, removes everything
+```
 
 ## Manage this machine
 
