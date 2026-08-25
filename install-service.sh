@@ -49,8 +49,14 @@ Wants=network-online.target
 Type=exec
 WorkingDirectory=$ABS_DIR
 ExecStart=$GATEX -c $ABS_DIR/config.yaml serve
-Restart=always
-RestartSec=3
+Restart=on-failure
+# 3s hot-looped an unlicensed box ~2,900 times a day; 30s still recovers from a
+# transient license-server outage without burning a core on it.
+RestartSec=30
+# Exit 1 is the licence gate refusing to start: it needs an operator, not a
+# retry. Exit 3 (uvicorn startup failure, e.g. the license server unreachable)
+# can clear on its own, so that one keeps retrying.
+RestartPreventExitStatus=1
 
 [Install]
 WantedBy=default.target
@@ -62,7 +68,7 @@ Description=gate-x self-update check
 
 [Service]
 Type=oneshot
-ExecStart=$GATEX update --apply --yes
+ExecStart=$GATEX -c $ABS_DIR/config.yaml update --apply --yes
 UNIT
 
 cat > "$UNIT_DIR/gatex-update.timer" <<UNIT
