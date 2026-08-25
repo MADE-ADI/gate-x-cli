@@ -42,6 +42,7 @@ CFG
 cat > "$UNIT_DIR/gatex.service" <<UNIT
 [Unit]
 Description=gate-x proxy
+# Managed by gate-x -- rewritten by 'gate-x update --apply'.
 After=network-online.target
 Wants=network-online.target
 
@@ -65,6 +66,7 @@ UNIT
 cat > "$UNIT_DIR/gatex-update.service" <<UNIT
 [Unit]
 Description=gate-x self-update check
+# Managed by gate-x -- rewritten by 'gate-x update --apply'.
 
 [Service]
 Type=oneshot
@@ -74,6 +76,7 @@ UNIT
 cat > "$UNIT_DIR/gatex-update.timer" <<UNIT
 [Unit]
 Description=Check gate-x for updates
+# Managed by gate-x -- rewritten by 'gate-x update --apply'.
 
 [Timer]
 # OnActiveSec, not OnBootSec: this is relative to the timer starting, so it
