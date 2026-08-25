@@ -76,7 +76,11 @@ cat > "$UNIT_DIR/gatex-update.timer" <<UNIT
 Description=Check gate-x for updates
 
 [Timer]
-OnBootSec=${INTERVAL}s
+# OnActiveSec, not OnBootSec: this is relative to the timer starting, so it
+# always has a first elapse in the future. OnBootSec on a box with weeks of
+# uptime is already in the past, which leaves the timer "active (elapsed)"
+# with Trigger: n/a — dead, and it never recovers on its own.
+OnActiveSec=${INTERVAL}s
 OnUnitActiveSec=${INTERVAL}s
 AccuracySec=5s
 Persistent=true
