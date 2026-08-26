@@ -188,6 +188,27 @@ print("plugin ok")
 PY
 ok "licence plugin discovered"
 
+# ---- put `gate-x` on PATH ------------------------------------------------
+# Symlinks the venv binary into a bin dir and, when that dir is not on PATH,
+# appends one export line to ~/.bashrc / ~/.zshrc / ~/.profile. All of it lives
+# in gatex.cli.units so `gate-x start` and `gate-x uninstall` share the logic.
+say "putting gate-x on your PATH"
+PATH_OUT="$("$VENV/bin/python" - <<'PY' || true
+from gatex.cli import units
+link, edited = units.ensure_path()
+print(link or "")
+print(", ".join(str(rc) for rc in edited))
+PY
+)"
+LINK="$(printf '%s\n' "$PATH_OUT" | sed -n 1p)"
+EDITED="$(printf '%s\n' "$PATH_OUT" | sed -n 2p)"
+if [ -n "$LINK" ]; then
+  ok "$LINK"
+  [ -n "$EDITED" ] && ok "PATH line added to $EDITED"
+else
+  warn "could not create a gate-x shim; use $GATEX directly"
+fi
+
 # ---- optional live activation -------------------------------------------
 if [ -n "$KEY" ] && [ -n "$SERVER" ]; then
   say "activating $KEY against $SERVER"
@@ -203,11 +224,24 @@ fi
 
 # ---- done ----------------------------------------------------------------
 printf '\n%s%s installed %s\n' "$B" "$G" "$Z"
+
+# A script cannot reload the shell that launched it, so the command to run
+# depends on whether THIS shell can already see the shim.
+CMD="$GATEX"
+RELOAD=""
+if [ -n "$LINK" ] && [ "$(command -v gate-x 2>/dev/null)" = "$LINK" ]; then
+  CMD="gate-x"
+elif [ -n "$EDITED" ]; then
+  CMD="gate-x"
+  RELOAD="exec \$SHELL -l   # or just open a new terminal"
+fi
+
 cat <<DONE
 
 One more step — run this and paste your licence key:
 
-     $GATEX start
+${RELOAD:+     $RELOAD
+}     $CMD start
 
 That activates the licence, configures everything, starts the service and its
 auto-updater, and prints your panel URL. Nothing else to set up.
