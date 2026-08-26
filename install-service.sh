@@ -34,8 +34,11 @@ GATEX="$ABS_DIR/.venv/bin/gate-x"
 UNIT_DIR="$HOME/.config/systemd/user"
 mkdir -p "$UNIT_DIR"
 
+# 0.0.0.0 so the customer can reach their own panel from a browser. gate-x
+# refuses to serve on a public address until api-keys is set, so this does not
+# publish an open proxy; `gate-x setup` generates the key.
 [ -f "$ABS_DIR/config.yaml" ] || cat > "$ABS_DIR/config.yaml" <<CFG
-host: 127.0.0.1
+host: 0.0.0.0
 port: 8317
 CFG
 
