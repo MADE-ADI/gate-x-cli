@@ -202,16 +202,14 @@ elif [ -n "$KEY$SERVER" ]; then
 fi
 
 # ---- done ----------------------------------------------------------------
-printf '\n%s%s all good %s\n' "$B" "$G" "$Z"
+printf '\n%s%s installed %s\n' "$B" "$G" "$Z"
 cat <<DONE
 
-Next:
-  1. activate (if not done):
-       $GATEX license activate GATEX-XXXX-XXXX-XXXX-XXXX --server https://YOUR-SERVER
-  2. write config.yaml (see the repo README), then:
-       $GATEX -c config.yaml serve
-  3. point your OpenAI/Anthropic SDK at http://127.0.0.1:8317
+One more step — run this and paste your licence key:
 
-Handy:
-  $GATEX license status | devices | deactivate
+     $GATEX start
+
+That activates the licence, configures everything, starts the service and its
+auto-updater, and prints your panel URL. Nothing else to set up.
+
 DONE
