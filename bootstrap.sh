@@ -14,7 +14,7 @@
 # Safe to re-run. It never touches the system Python; it builds an isolated venv.
 set -euo pipefail
 
-REPO="MADE-ADI/gate-x-cli"
+REPO="SEKAI-MIRROR/gate-x-cli"
 NEED_MAJOR=3
 NEED_MINOR=12
 
