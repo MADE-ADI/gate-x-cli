@@ -7,14 +7,14 @@
 #   ./update.sh [--dir DIR] [--repo owner/name] [--no-backup]
 #
 #   --dir DIR      install location (default: ./gate-x, then ~/gate-x)
-#   --repo O/N     release repo override (default: MADE-ADI/gate-x-cli)
+#   --repo O/N     release repo override (default: SEKAI-MIRROR/gate-x-cli)
 #   --no-backup    skip the config/credential tarball taken before installing
 #
 # Safe to re-run. Only the Python package is replaced; the service is restarted
 # when it is running under systemd.
 set -euo pipefail
 
-REPO="${GATEX_UPDATE_REPO:-MADE-ADI/gate-x-cli}"
+REPO="${GATEX_UPDATE_REPO:-SEKAI-MIRROR/gate-x-cli}"
 DIR=""
 BACKUP=1
 
