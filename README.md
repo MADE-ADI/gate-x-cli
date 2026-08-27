@@ -22,13 +22,13 @@ Checks for Python 3.12 (installs it if missing), builds an isolated venv,
 installs the compiled build, and verifies it runs:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.sh | bash -s -- --dir gate-x
+curl -fsSL https://raw.githubusercontent.com/SEKAI-MIRROR/gate-x-cli/main/bootstrap.sh | bash -s -- --dir gate-x
 ```
 
 Pass your key to activate in the same step:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.sh | bash -s -- --server https://YOUR-LICENSE-SERVER --key GATEX-XXXX-XXXX-XXXX-XXXX
+curl -fsSL https://raw.githubusercontent.com/SEKAI-MIRROR/gate-x-cli/main/bootstrap.sh | bash -s -- --server https://YOUR-LICENSE-SERVER --key GATEX-XXXX-XXXX-XXXX-XXXX
 ```
 
 ## Install (manual)
@@ -36,7 +36,7 @@ curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/bootstrap.
 Requires **Python 3.12** on Linux x86_64.
 
 ```bash
-pip install "$(curl -fsSL https://api.github.com/repos/MADE-ADI/gate-x-cli/releases/latest | grep -oE 'https://[^"]+cp312[^"]+\.whl')"
+pip install "$(curl -fsSL https://api.github.com/repos/SEKAI-MIRROR/gate-x-cli/releases/latest | grep -oE 'https://[^"]+cp312[^"]+\.whl')"
 ```
 
 The wheel filename embeds the version (`gate_x-0.1.1-cp312-...`), so don't
@@ -93,7 +93,7 @@ installs the newest release, refreshes the systemd units and restarts the
 service. Nothing you logged in or configured is touched:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/update.sh | bash -s -- --dir gate-x
+curl -fsSL https://raw.githubusercontent.com/SEKAI-MIRROR/gate-x-cli/main/update.sh | bash -s -- --dir gate-x
 ```
 
 Options: `--dir DIR` (install location, default `./gate-x` then `~/gate-x`),
@@ -105,7 +105,7 @@ put gate-x under systemd `--user` and have it check for updates every 5
 minutes, auto-installing and restarting itself when a new release ships:
 
 ```bash
-curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/install-service.sh | bash -s -- --dir gate-x
+curl -fsSL https://raw.githubusercontent.com/SEKAI-MIRROR/gate-x-cli/main/install-service.sh | bash -s -- --dir gate-x
 ```
 
 Change the cadence with `--interval SECONDS` (default 300). Check on it any time:
