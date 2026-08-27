@@ -87,6 +87,19 @@ gate-x update            # check only
 gate-x update --apply    # download + install the newer release
 ```
 
+**Manual update (one command):** finds your install, backs up your credentials
+(`~/.gate-x`) and `config.yaml` to `~/gate-x-backup-<timestamp>.tar.gz`,
+installs the newest release, refreshes the systemd units and restarts the
+service. Nothing you logged in or configured is touched:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/MADE-ADI/gate-x-cli/main/update.sh | bash -s -- --dir gate-x
+```
+
+Options: `--dir DIR` (install location, default `./gate-x` then `~/gate-x`),
+`--repo owner/name` (release repo), `--no-backup`. Safe to re-run; it also
+works on an old build that has no `gate-x update` command yet.
+
 **Fully automatic (no manual update needed):** run this once after install to
 put gate-x under systemd `--user` and have it check for updates every 5
 minutes, auto-installing and restarting itself when a new release ships:
@@ -103,8 +116,8 @@ journalctl --user -u gatex-update.service -f
 ```
 
 Note: a machine installed **before** this existed (v0.1.0) has no `update`
-command — run the manual install command above once to get onto a version
-that has it, then `install-service.sh` works as usual.
+command — run `update.sh` above (or the manual install command) once to get
+onto a version that has it, then `install-service.sh` works as usual.
 
 ## Uninstall
 
