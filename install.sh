@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Convenience installer: fetch the latest compiled wheel into a venv.
 set -euo pipefail
-REPO="MADE-ADI/gate-x-cli"
+REPO="SEKAI-MIRROR/gate-x-cli"
 PY="${PYTHON:-python3.12}"
 command -v "$PY" >/dev/null || { echo "need Python 3.12 ($PY not found)"; exit 1; }
 
