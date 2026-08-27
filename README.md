@@ -1,7 +1,18 @@
 # gate-x
 
-Licensed OpenAI- and Anthropic-compatible CLI proxy. Buy a key from the bot,
-activate it on up to **2 devices**, and run `gate-x serve`.
+Licensed OpenAI- and Anthropic-compatible CLI proxy. Buy a key from
+[**@sekai_gatex_bot**](https://t.me/sekai_gatex_bot), activate it on up to
+**2 devices**, and run `gate-x serve`.
+
+## Buy a licence
+
+Licences are sold only through the Telegram bot:
+
+### 👉 [t.me/sekai_gatex_bot](https://t.me/sekai_gatex_bot)
+
+Open it, pick a plan, pay, and the bot sends you a key that looks like
+`GATEX-XXXX-XXXX-XXXX-XXXX`. The same bot handles renewals, extra devices and
+support. Anyone selling gate-x keys anywhere else is not us.
 
 This repository ships the **compiled** build only. Source lives elsewhere.
 
@@ -112,8 +123,8 @@ gate-x license deactivate    # free this slot to move to another machine
 ## Notes
 
 - One key runs on at most two machines. Free a slot with `deactivate` (once per
-  30 days self-service) or from the bot's `/devices`.
+  30 days self-service) or from [@sekai_gatex_bot](https://t.me/sekai_gatex_bot)'s `/devices`.
 - The build is locked to Python 3.12. Use a matching interpreter or a venv:
   `python3.12 -m venv .venv && .venv/bin/pip install gate_x-*.whl`.
 
-Support: through the Telegram bot you bought your key from.
+Support and renewals: [@sekai_gatex_bot](https://t.me/sekai_gatex_bot).
